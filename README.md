@@ -61,3 +61,21 @@ jobs:
 (venv) ... Dev/infra_action$ git commit -m 'ваш_комментарий'
 (venv) ... Dev/infra_action$ git push
 ```
+
+## Настоящий workflow: PEP8
+
+**Начнём с чистого листа.**
+В коде *workflow* для клонирования репозитория применён предустановленный *action [checkout](https://github.com/actions/checkout)*, а для установки Python-окружения — *action [setup-python](https://github.com/actions/setup-python)*. 
+Команды для выполнения этих операций можно прописать вручную прямо в workflow, но проще применить готовые скрипты.
+
+Для последовательного запуска команд применяется такой синтаксис:
+```
+run: |
+  команда1
+  команда2
+  команда3
+```
+В шаге `Install dependencies` (англ. «установка зависимостей») сначала обновляется *pip*, затем устанавливаются необходимые пакеты для тестов. 
+После этого идёт установка всех зависимостей из *requirements.txt*.
+
+На шаге `Test with flake8 and django tests `запускается проверка *flake8*
